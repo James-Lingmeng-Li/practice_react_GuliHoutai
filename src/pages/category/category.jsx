@@ -16,8 +16,8 @@ class Category extends Component {
         parentName: '', /* 当前需要显示的分类列表的一级分类名字 */
         subCategories: [],//二级分类列表
 
-        showStatus: 0   
-        //标识 添加/更新 的确认框是否显示（0：都不显示； 1：显示添加； 2：显示更新）
+        showStatus: 0 //标识 添加/更新 的确认框是否显示（0：都不显示； 1：显示添加； 2：显示更新）
+        /* 这里是用一个变量来控制两个对话框是否显示 */
 
     }
     // 初始化Table所有列的数组

@@ -25,7 +25,7 @@ class Header extends Component {
             if (value.key === path) {//如果当前value对象的key和path一样，则value的title就是我要显示的title
                 title = value.title
             } else if (value.subMenuList) {//又如果此时有子菜单
-                const subMenu = value.subMenuList.find(value2 => value2.key === path)
+                const subMenu = value.subMenuList.find(value2 => path.indexOf(value2.key) === 0)
                 if (subMenu) {//如果上面find()找到了，就执行下面语句
                     title = subMenu.title
                 }

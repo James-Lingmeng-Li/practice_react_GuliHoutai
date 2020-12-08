@@ -46,9 +46,15 @@ export const reqSearchProducts = ({pageNum, pageSize, searchName, searchType}) =
 export const reqUpdateStatus = (productId, status) => ajax(BASE+'/manage/product/updateStatus',{productId, status}, 'POST')
 // 根据分类ID获取分类名称
 export const reqCategoryName = (categoryId) => ajax(BASE+'/manage/category/info',{categoryId})
-
 // 删除图片
 export const reqDeltePicture = (name) => ajax(BASE + '/manage/img/delete', {name}, 'POST')
 // 添加或更新商品
 export const reqAddorUpdateProduct = (product) => ajax(BASE + '/manage/product/' + (product._id ? 'update': 'add'), product, 'POST')/* 注意这里product本身就是一个对象，所以就不需要再加花括号 */
+// 获取所有角色列表
+export const reqRoles = () => ajax(BASE+'/manage/role/list')
+// 添加角色
+export const reqAddRole = (roleName) => ajax(BASE+'/manage/role/add', {roleName}, 'POST')
+// 更新角色
+export const reqUpdateRole = (role) => ajax(BASE+'/manage/role/update', role, 'POST')
+
 
