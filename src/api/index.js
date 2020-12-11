@@ -10,8 +10,6 @@ const BASE = '' /* 空串是为了不让域名固定。因为有可能是3000端
 
 // 登录
 export const reqLogin = (username, password) => ajax(BASE + '/login', {username, password}, 'POST')
-// 添加用户
-export const reqAddUser = (user) => ajax(BASE + '/manage/user/add', user, 'POST')
 // 请求天气
 export const reqWeather = (city) => {
     const url = 'http://api.k780.com'
@@ -56,5 +54,12 @@ export const reqRoles = () => ajax(BASE+'/manage/role/list')
 export const reqAddRole = (roleName) => ajax(BASE+'/manage/role/add', {roleName}, 'POST')
 // 更新角色
 export const reqUpdateRole = (role) => ajax(BASE+'/manage/role/update', role, 'POST')
+// 获取所有用户列表
+export const reqUsers = () => ajax(BASE+'/manage/user/list')
+// 删除用户
+export const reqDeleteUser = (userId) => ajax(BASE+'/manage/user/delete', {userId}, 'POST')
+// 添加或更新用户
+export const reqAddorUpdateUser = (user) => ajax(BASE+'/manage/user/'+(user._id?'update':'add'), user, 'POST')
+
 
 

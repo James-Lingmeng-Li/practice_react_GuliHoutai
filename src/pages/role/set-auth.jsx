@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Input, Tree, Form } from 'antd';
 import PropTypes from 'prop-types';
 import menuList from '../../config/menuConfig';
@@ -21,7 +21,7 @@ const treeData = [
 ];
 
 
-class SetAuth extends Component {
+class SetAuth extends PureComponent {
     static propTypes = {
         role: PropTypes.object.isRequired
     }
@@ -50,6 +50,7 @@ class SetAuth extends Component {
     render() {
         const { role } = this.props
         const { newCheckedKeys, defaultCheckedKeys } = this.state
+        console.log('render');
         return (
             <Form>
                 <Form.Item label='角色名称'>

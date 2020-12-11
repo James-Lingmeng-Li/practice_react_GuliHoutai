@@ -12,7 +12,9 @@ const menuList = [
     {
         title: '首页',
         key: '/home',
-        icon: <HomeOutlined />
+        icon: <HomeOutlined />,
+        isPublic: true, /* 是公开的，大家都能看得见 */
+
     },
     {
         title: '商品',

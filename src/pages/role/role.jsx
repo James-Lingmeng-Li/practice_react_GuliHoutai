@@ -5,6 +5,7 @@ import { reqRoles, reqAddRole, reqUpdateRole } from '../../api';
 import AddRole from './add-role';
 import SetAuth from './set-auth';
 import memoryUtils from '../../utils/memoryUtils';
+import storageUtils from '../../utils/storageUtils';
 import { formateDate } from '../../utils/dateUtils';
 class Role extends Component {
     constructor(props) {
@@ -77,7 +78,7 @@ class Role extends Component {
     }
     setAuth = async () => {
         this.setState({isShowAuth:false})
-        const role = this.state.role
+        const role = this.state.role/* 当前选中的role */
         // 得到最新的role
         const menus = this.auth.current.getMenus()
         role.menus = menus
@@ -85,8 +86,18 @@ class Role extends Component {
         role.auth_name = memoryUtils.user.username/* 设置授权人 */
         const result = await reqUpdateRole(role)
         if (result.status === 0) {
-            message.success('角色权限更新成功')
             /* 这里由于role的指向的是roles的一个元素，所以都是指向同一个对象，所以不需要发送请求也能看到权限更新 */
+            // 如果当前账号更新的自己所属角色的权限，则强制退出
+            if (role._id === memoryUtils.user.role_id) {
+                memoryUtils.user = {}/* 清空内存的数据 */
+                storageUtils.removeUser()/* 移除浏览器localStorage的数据 */
+                this.props.history.replace('/login')
+                message.success('当前用户权限已修改，您需要重新登录')
+            } else {
+                message.success('角色权限更新成功')
+            }
+
+            
         } else {
             message.success('角色权限更新失败')
         }
@@ -124,9 +135,12 @@ class Role extends Component {
                     rowSelection={{
                         type: 'radio',
                         selectedRowKeys: [role._id],
+                        onSelect: (role) => {
+                            this.setState({ role })
+                        }
                     }}/* selectedRowKeys:指定选中项的 key值。这里的key那么其实就是role的_id，因为rowKey='_id'.这里是数组是因为还可能有复选框的存在 */
                     /* ↑上面这里是根据role的_id来显示单选框是否选中。即我要根据某key值来显示对应行的单选框 */
-                    /* ↑单独指定了单选框选中的key，好像不能点击按钮来选中了 */
+                    /* ↑单独指定了单选框选中的key，就不能点击按钮来选中了。此时通过rowSelection内的onSelect来解决这个bug */
                     onRow={this.onRow}/* 行属性，值是一个函数。这里是间接用来点击时某一行任意位置时能选择对应的单选框 */
 
                 >

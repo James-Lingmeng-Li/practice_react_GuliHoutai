@@ -48,7 +48,6 @@ class Category extends Component {
                 )
                 },
             ];
-
     }
     // 显示一级分类列表
     showCategories = () => {

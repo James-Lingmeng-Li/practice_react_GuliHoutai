@@ -59,9 +59,6 @@ class ProductAddUpdate extends Component {
             // console.log('targetOption',targetOption);
             targetOption.children = childOptions
         } 
-
-
-
         this.setState({ optionsList })
     }
     onFinish = async () => {

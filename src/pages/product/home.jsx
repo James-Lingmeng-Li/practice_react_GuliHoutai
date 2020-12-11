@@ -99,7 +99,7 @@ class ProductHome extends Component {
 
     // 获取指定页码的列表数据显示（）
     getProducts = async (pageNum) => {
-        this.pageNum = pageNum // 保存pageNum，让其它方法看到(其实是给更新商品状态时使用，为的是更新状态后跳转到更新了的商品的页面）
+        this.pageNum = pageNum // 保存点击了的页码pageNum，让其它方法看到(其实是给更新商品状态时使用，为的是更新状态后跳转到更新了的商品的页面）
         this.setState({loading: true})
         const {searchName, searchType} = this.state
         let result
@@ -163,6 +163,7 @@ class ProductHome extends Component {
                     rowKey='_id' /* 指定了rowKey就不用指定columns的key了 */
                     pagination={//分页器
                         {
+                            current: this.pageNum,/* 用来解决在第三页时进行搜索后，页码还停留在第三页，但搜索结果其实是在第一页 */
                             defaultPageSize: PAGE_SIZE,
                             showQuickJumper: true,
                             total,
